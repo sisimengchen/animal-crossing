@@ -1,0 +1,23 @@
+.index-page {
+  background-color: #fff;
+  padding-left: 48px;
+  padding-right: 48px;
+  .card {
+    margin-top: 48px;
+    padding: 48px;
+    display: flex;
+    background-color: #f3f3f3;
+    font-size: 32px;
+    color: #834b16;
+    border-radius: 32px;
+    image {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+    }
+    Text {
+      margin-left: 32px;
+      line-height: 96px;
+    }
+  }
+}

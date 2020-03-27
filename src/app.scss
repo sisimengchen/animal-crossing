@@ -1,0 +1,56 @@
+/* The Color of O2Team Brand */
+$color-brand: #834b16;
+$color-brand-light: #40c28c;
+$color-brand-dark: #008b52;
+
+/* Text Color */
+$color-text-base: #000 !default; // 文字的基本色
+$color-text-base-inverse: #fff !default; // 反色
+$color-text-secondary: #8f9b95 !default; // 辅助色
+$color-text-placeholder: #9c9fa1 !default;
+
+/* Link */
+$color-link: #834b16 !default;
+$color-link-hover: #008b52 !default;
+$color-link-active: #40c28c !default;
+$color-link-disabled: #bfbfbf !default;
+/* 边框颜色 */
+$color-border-base: #e5e5e5 !default;
+$color-border-grey: #e5e5e5 !default;
+
+/* 图标颜色 */
+$color-icon-base: #e5e5e5 !default;
+@import '~taro-ui/dist/style/index.scss';
+#app {
+  background-color: #f5f5f5;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  .g-empty {
+    text-align: center;
+    padding-top: 300px;
+    .icon {
+      image {
+        width: 128px;
+        height: 128px;
+      }
+    }
+    .tip {
+      margin-top: 10px;
+      Text {
+        font-size: 28px;
+        letter-spacing: 2px;
+        color: rgba(0, 0, 0, 0.7);
+      }
+    }
+  }
+}
+
+view {
+  box-sizing: border-box;
+}
