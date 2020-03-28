@@ -25,7 +25,8 @@ class App extends Component {
       navigationBarBackgroundColor: '#834B16',
       navigationBarTitleText: '动森图鉴',
       navigationBarTextStyle: 'white'
-    }
+    },
+    navigateToMiniProgramAppIdList: ['wxa52657922aaaae3f']
   };
 
   componentDidMount() {}

@@ -1,4 +1,53 @@
 .about-page {
   background-color: #fff;
-  padding: 48px;
+  .updates {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 256px;
+    .update {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      border-bottom: 2px solid #e5e5e5;
+      .version {
+        color: #353535;
+        font-size: 28px;
+        font-weight: bold;
+        line-height: 48px;
+      }
+      .date {
+        font-size: 24px;
+        color: #888;
+        line-height: 36px;
+        margin-bottom: 12px;
+      }
+      .itemList {
+        text-align: left;
+        font-size: 24px;
+        color: #353535;
+        line-height: 36px;
+      }
+    }
+  }
+  .author {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #888;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    background-color: #fff;
+    image {
+      display: block;
+      width: 80px;
+      height: 80px;
+      margin: 0 auto;
+      margin-bottom: 8px;
+    }
+    Text {
+      display: block;
+      line-height: 28px;
+    }
+  }
 }

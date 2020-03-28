@@ -16,12 +16,19 @@ export default class Index extends Component {
           icon: '/images/animals/insect/insect001.png',
           text: '昆虫图鉴',
           url: '/pages/list/index?type=insect'
+        },
+        {
+          icon: '/images/icon_lattedex.png',
+          text: '关于',
+          url: '/pages/about/index'
         }
-        // {
-        //   icon: '/images/animals/img.png',
-        //   text: '关于',
-        //   url: '/pages/about/index'
-        // }
+      ],
+      miniProgramList: [
+        {
+          icon: '/images/icon_cokedex.png',
+          text: '可乐图鉴Pokedex',
+          appId: 'wxa52657922aaaae3f'
+        }
       ]
     };
   }
@@ -43,7 +50,7 @@ export default class Index extends Component {
   onShareAppMessage(options) {}
 
   render() {
-    const { list = [] } = this.state;
+    const { list = [], miniProgramList = [] } = this.state;
     return (
       <View className="page index-page">
         {list.map((item, index) => {
@@ -54,6 +61,23 @@ export default class Index extends Component {
               onClick={() => {
                 Taro.navigateTo({
                   url: item.url
+                });
+              }}
+            >
+              <Image src={item.icon} />
+              <Text>{item.text}</Text>
+            </View>
+          );
+        })}
+        <View className="mini-title">—— 我们的其他作品 ——</View>
+        {miniProgramList.map((item, index) => {
+          return (
+            <View
+              key={item.url}
+              className="card"
+              onClick={() => {
+                Taro.navigateToMiniProgram({
+                  appId: item.appId
                 });
               }}
             >
