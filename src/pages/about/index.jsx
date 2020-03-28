@@ -42,7 +42,7 @@ export default class About extends Component {
           {updateList.map((update, index) => {
             return (
               <View key={index} className="update">
-                <View className="version">{update.version}</View>
+                <View className="version">Ver {update.version}</View>
                 <View className="date">{update.date}</View>
                 <View className="itemList">
                   {update.updateItems.map(item => {
