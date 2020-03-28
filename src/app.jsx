@@ -14,8 +14,9 @@ class App extends Component {
     pages: [
       // 'pages/detail/index',
       'pages/index/index',
-      'pages/filter/index',
       'pages/list/index',
+      'pages/filter/index',
+      'pages/filterout/index',
       'pages/detail/index',
       'pages/about/index'
     ],

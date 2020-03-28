@@ -8,7 +8,10 @@ import './index.scss';
 export default class Filter extends Component {
   constructor() {
     super(...arguments);
+    const { type = 'fish' } = this.$router.params;
     this.state = {
+      type,
+      monthKey: 'month_n',
       month: [],
       startTime: 0,
       endTime: 24
@@ -37,12 +40,47 @@ export default class Filter extends Component {
     });
   }
 
-  render() {
+  check() {
     const { month = [], startTime, endTime } = this.state;
+    if (month.length == 0 && startTime == 0 && endTime == 24) {
+      Taro.showToast({
+        title: '请选择筛选条件',
+        icon: 'none',
+        duration: 2000
+      });
+      return false;
+    }
+    return true;
+  }
+
+  render() {
+    const { type, monthKey, month = [], startTime, endTime } = this.state;
     return (
       <View className="page filter-page">
         <View className="condition">
-          <View className="title">活跃期</View>
+          <View className="title">
+            活跃期
+            <View className="switch">
+              <View
+                className={`item left${monthKey == 'month_s' ? ' active' : ''}`}
+                onClick={() => {
+                  this.setState({ monthKey: 'month_s' });
+                }}
+              >
+                南半球
+              </View>
+              <View
+                className={`item right${
+                  monthKey == 'month_n' ? ' active' : ''
+                }`}
+                onClick={() => {
+                  this.setState({ monthKey: 'month_n' });
+                }}
+              >
+                北半球
+              </View>
+            </View>
+          </View>
           <View className="months">
             {ALL_MONTH.map((item, index) => {
               const isActive = month.includes(item);
@@ -66,7 +104,7 @@ export default class Filter extends Component {
         <View className="condition">
           <View className="title">
             时间
-            <Text>
+            <Text className="time">
               {startTime}点~{endTime}点
             </Text>
           </View>
@@ -96,9 +134,15 @@ export default class Filter extends Component {
           </Button>
           <Button
             onClick={() => {
-              cacheDataSet('PAGES_FILTER_STATE', this.state);
-              Taro.navigateBack({
-                delta: 1
+              if (!this.check()) return;
+              cacheDataSet('PAGES_FILTER_STATE', {
+                monthKey,
+                month,
+                startTime,
+                endTime
+              });
+              Taro.navigateTo({
+                url: `/pages/filterout/index?type=${type}`
               });
             }}
           >

@@ -1,37 +1,10 @@
 .list-page {
-  .animal-list {
-    background-color: #fff;
-    border-top: 2px solid rgba($color: #000000, $alpha: 0.05);
-    .animal {
-      position: relative;
-      display: flex;
-      height: 128px;
-      line-height: 128px;
-      padding: 0 32px;
-      color: #000000;
-      font-size: 32px;
-      &::after {
-        content: ' ';
-        position: absolute;
-        right: 0;
-        bottom: 0px;
-        left: 144px;
-        border-bottom: 2px solid rgba($color: #000000, $alpha: 0.05);
-      }
-      .icon {
-        width: 112px;
-        display: flex;
-        align-items: center;
-        image {
-          width: 80px;
-          height: 80px;
-        }
-      }
-      .name {
-        flex: 1;
-      }
-      .price {
-      }
-    }
+  .filter {
+    position: fixed;
+    bottom: 64px;
+    width: 160px;
+    height: 80px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }

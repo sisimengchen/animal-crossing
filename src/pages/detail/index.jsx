@@ -11,7 +11,7 @@ export default class Detail extends Component {
     this.state = {
       type,
       id,
-      isNorth: true,
+      monthKey: 'month_n',
       data: globalObject.formate(type, data)
     };
     this.imageSrc = `/images/animals/${type}/${type}${(id + '').padStart(
@@ -48,8 +48,8 @@ export default class Detail extends Component {
   }
 
   render() {
-    const { type, id, isNorth, data = {} } = this.state;
-    const month = isNorth ? data.month_n || [] : data.month_s || [];
+    const { type, id, monthKey, data = {} } = this.state;
+    const month = data[monthKey] || [];
     return (
       <View className="page detail-page">
         <View className="top">
@@ -85,17 +85,19 @@ export default class Detail extends Component {
             活跃期
             <View className="switch">
               <View
-                className={`item left${isNorth ? '' : ' active'}`}
+                className={`item left${monthKey == 'month_s' ? ' active' : ''}`}
                 onClick={() => {
-                  this.setState({ isNorth: false });
+                  this.setState({ monthKey: 'month_s' });
                 }}
               >
                 南半球
               </View>
               <View
-                className={`item right${isNorth ? ' active' : ''}`}
+                className={`item right${
+                  monthKey == 'month_n' ? ' active' : ''
+                }`}
                 onClick={() => {
-                  this.setState({ isNorth: true });
+                  this.setState({ monthKey: 'month_n' });
                 }}
               >
                 北半球
