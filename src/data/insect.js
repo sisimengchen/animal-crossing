@@ -144,7 +144,7 @@ export default [
   },
   {
     id: 12,
-    name: '亚历山大蝶',
+    name: '亚历山大凤蝶',
     eng_name: "Queen Alexandra's birdwing",
     jap_name: '',
     price: 4000,
@@ -677,7 +677,7 @@ export default [
   },
   {
     id: 53,
-    name: '白铜锣花金龟',
+    name: '日铜锣花金龟',
     eng_name: 'Drone beetle',
     jap_name: '',
     price: 200,
@@ -703,7 +703,7 @@ export default [
   },
   {
     id: 55,
-    name: '锯锹金龟',
+    name: '锯揪形虫',
     eng_name: 'Saw stag',
     jap_name: '',
     price: 2000,
@@ -716,7 +716,7 @@ export default [
   },
   {
     id: 56,
-    name: '深山锹金龟',
+    name: '深山锹形虫',
     eng_name: 'Miyama stag',
     jap_name: '',
     price: 1000,
@@ -807,7 +807,7 @@ export default [
   },
   {
     id: 63,
-    name: '高卡萨斯南阳大兜虫',
+    name: '高卡萨斯南洋大兜虫',
     eng_name: 'Horned atlas',
     jap_name: '',
     price: 8000,
