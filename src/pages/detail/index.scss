@@ -41,27 +41,10 @@
     .title {
       font-size: 28px;
       color: #000000;
-      .switch {
+      .expire-days {
+        color: #dc4343;
+        font-size: 28px;
         margin-left: 24px;
-        display: inline-block;
-        font-size: 24px;
-        .item {
-          display: inline-block;
-          background-color: #f3f3f3;
-          color: rgba($color: #000000, $alpha: 0.3);
-          padding-left: 12px;
-          padding-right: 12px;
-          &.active {
-            background-color: #f7eabe;
-            color: #834b16;
-          }
-        }
-        .left {
-          padding-right: 8px;
-        }
-        .right {
-          padding-left: 8px;
-        }
       }
     }
     .months {
@@ -98,6 +81,7 @@
   .bottom {
     background-color: #fff;
     margin-top: 16px;
+    margin-bottom: 16px;
     padding: 32px;
     .title {
       font-size: 28px;

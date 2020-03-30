@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text, Image, Ad } from '@tarojs/components';
 import { globalObject } from '../../data';
 import { cacheDataGet } from '../../utils/cache';
 import './index.scss';
@@ -23,7 +23,6 @@ export default class Filterout extends Component {
   componentDidMount() {
     const { type } = this.state;
     const filterState = cacheDataGet('PAGES_FILTER_STATE');
-    console.log(filterState);
     this.setState({
       list: globalObject.filterList(type, filterState)
     });
@@ -39,6 +38,7 @@ export default class Filterout extends Component {
     const { type, list = [] } = this.state;
     return (
       <View className="page filterout-page">
+        <Ad unit-id="adunit-6ef6284998be6d4f"></Ad>
         <View className="animal-list">
           {list.map((item, index) => {
             const imageSrc = `/images/animals/${type}/${type}${(
@@ -57,8 +57,17 @@ export default class Filterout extends Component {
                 <View className="icon">
                   <Image src={imageSrc} />
                 </View>
-                <Text className="name">{item.name}</Text>
-                <Text className="price">{item.price}</Text>
+                <View className="name">
+                  {item.name}
+                  {item.expireDays > -1 && item.expireDays <= 7 ? (
+                    <Text className="expire-days">
+                      {item.expireDays == 0
+                        ? '最后一天'
+                        : item.expireDays + '天后到期'}
+                    </Text>
+                  ) : null}
+                </View>
+                <View className="price">{item.price}</View>
               </View>
             );
           })}

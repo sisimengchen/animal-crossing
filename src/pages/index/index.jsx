@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
+import { read, save } from '../../utils/localStorage';
 import './index.scss';
 
 export default class Index extends Component {
@@ -16,11 +17,6 @@ export default class Index extends Component {
           icon: '/images/animals/insect/insect001.png',
           text: '昆虫图鉴',
           url: '/pages/list/index?type=insect'
-        },
-        {
-          icon: '/images/icon_lattedex.png',
-          text: '关于',
-          url: '/pages/about/index'
         }
       ],
       miniProgramList: [
@@ -29,7 +25,8 @@ export default class Index extends Component {
           text: '可乐图鉴Pokedex',
           appId: 'wxa52657922aaaae3f'
         }
-      ]
+      ],
+      monthKey: read('GLOBAL_MONTH_KEY')
     };
   }
 
@@ -50,7 +47,7 @@ export default class Index extends Component {
   onShareAppMessage(options) {}
 
   render() {
-    const { list = [], miniProgramList = [] } = this.state;
+    const { list = [], miniProgramList = [], monthKey } = this.state;
     return (
       <View className="page index-page">
         {list.map((item, index) => {
@@ -69,6 +66,45 @@ export default class Index extends Component {
             </View>
           );
         })}
+        <View className="table">
+          <View
+            className="item"
+            onClick={() => {
+              Taro.navigateTo({
+                url: '/pages/about/index'
+              });
+            }}
+          >
+            <View className="title">关于LatteDex</View>
+            <View className="text">Ver 1.0</View>
+          </View>
+          <View
+            className="item"
+            onClick={() => {
+              const data = monthKey == 'month_n' ? 'month_s' : 'month_n';
+              save('GLOBAL_MONTH_KEY', data);
+              this.setState(
+                {
+                  monthKey: data
+                },
+                () => {
+                  Taro.showToast({
+                    title: `游戏环境切换到${
+                      data == 'month_n' ? '北' : '南'
+                    }半球`,
+                    icon: 'none',
+                    duration: 2000
+                  });
+                }
+              );
+            }}
+          >
+            <View className="title">游戏环境</View>
+            <View className="text">
+              {monthKey == 'month_n' ? '北半球' : '南半球'}
+            </View>
+          </View>
+        </View>
         <View className="mini-title">—— 我们的其他作品 ——</View>
         {miniProgramList.map((item, index) => {
           return (

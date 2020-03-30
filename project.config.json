@@ -4,15 +4,18 @@
 	"description": "animal-crossing",
 	"appid": "wxbae57ea6496c7e66",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
+		"enhance": true,
 		"postcss": false,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
+		"nodeModules": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
+		"uglifyFileName": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -21,9 +24,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"enhance": true,
-		"nodeModules": true,
-		"uglifyFileName": true
+		"bundle": true
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",

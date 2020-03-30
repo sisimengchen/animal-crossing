@@ -3,6 +3,7 @@ import { View, Text, Button } from '@tarojs/components';
 import { AtRange } from 'taro-ui';
 import { ALL_MONTH } from '../../data';
 import { cacheDataSet } from '../../utils/cache';
+import { read } from '../../utils/localStorage';
 import './index.scss';
 
 export default class Filter extends Component {
@@ -11,7 +12,7 @@ export default class Filter extends Component {
     const { type = 'fish' } = this.$router.params;
     this.state = {
       type,
-      monthKey: 'month_n',
+      monthKey: read('GLOBAL_MONTH_KEY'),
       month: [],
       startTime: 0,
       endTime: 24

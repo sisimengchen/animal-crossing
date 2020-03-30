@@ -1,6 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
 import Index from './pages/index';
-
+import { read, save } from './utils/localStorage';
 import './app.scss';
 
 // 如果需要在 h5 环境中开启 React Devtools
@@ -8,8 +8,30 @@ import './app.scss';
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
+let interstitialAd = null;
 
 class App extends Component {
+  constructor() {
+    super(...arguments);
+    const monthKey = read('GLOBAL_MONTH_KEY');
+    if (!monthKey) {
+      save('GLOBAL_MONTH_KEY', 'month_n');
+    }
+    if (Taro.createInterstitialAd) {
+      interstitialAd = Taro.createInterstitialAd({
+        adUnitId: 'adunit-b35d91cb29a860c3'
+      });
+      interstitialAd.onLoad(() => {});
+      interstitialAd.onError(err => {});
+      interstitialAd.onClose(() => {});
+      if (interstitialAd) {
+        interstitialAd.show().catch(err => {
+          console.error(err);
+        });
+      }
+    }
+  }
+
   config = {
     pages: [
       // 'pages/detail/index',

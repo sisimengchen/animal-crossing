@@ -79,6 +79,11 @@ $color-icon-base: #e5e5e5 !default;
       }
       .name {
         flex: 1;
+        .expire-days {
+          color: #dc4343;
+          font-size: 28px;
+          margin-left: 24px;
+        }
       }
       .price {
       }

@@ -2,6 +2,8 @@ import fish from './fish';
 import fishmap from './fishmap';
 import insect from './insect';
 import insectmap from './insectmap';
+import moment from 'moment';
+import { read } from '../utils/localStorage';
 
 export const ALL_MONTH = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -29,12 +31,27 @@ export const globalObject = {
   },
   getList: function(type) {
     const list = this.data[type];
-    return list;
+    const monthKey = read('GLOBAL_MONTH_KEY') || 'month_n';
+    return list
+      .map(data => {
+        const expireData = getExpireData(data, monthKey);
+        // console.log(data, expireData);
+        return {
+          ...expireData,
+          ...data
+        };
+      })
+      .filter(Boolean);
   },
   getData: function(type, id) {
     const list = this.getList(type);
     const data = list[parseInt(id) - 1];
-    return data;
+    const monthKey = read('GLOBAL_MONTH_KEY') || 'month_n';
+    const expireData = getExpireData(data, monthKey);
+    return {
+      ...expireData,
+      ...data
+    };
   },
   formate: function(type = 'fish', data = {}) {
     data.month_n = data.month_n || [];
@@ -158,3 +175,45 @@ function helper(arr, i, j, result) {
   }
   helper(arr, i + 1, result.length - 1, result);
 }
+
+const getExpireData = function(data, monthKey) {
+  const month = data[monthKey] || [];
+  let expireDays = -1;
+  if (month.length == 0) {
+    // console.log(data, true);
+    return {
+      isVisible: true,
+      expireDays
+    };
+  }
+  const current = new moment().startOf('day');
+  const currentMonth = current.month() + 1;
+  const result = continuousGrouping(month);
+  const isVisible = result.some((item = []) => {
+    const from = item[0];
+    const to = item[item.length - 1];
+    if (currentMonth >= from && currentMonth <= to) {
+      expireDays = moment()
+        .month(to - 1)
+        .endOf('month')
+        .diff(current, 'days');
+      return true;
+    }
+    return false;
+  });
+  return {
+    isVisible,
+    expireDays
+  };
+};
+
+const continuousGrouping = function(arr) {
+  var result = [],
+    i = 0;
+  result[i] = [arr[0]];
+  arr.reduce(function(prev, cur) {
+    cur - prev === 1 ? result[i].push(cur) : (result[++i] = [cur]);
+    return cur;
+  });
+  return result;
+};
