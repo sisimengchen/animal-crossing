@@ -34,7 +34,7 @@
       }
     }
   }
-  .middle {
+  .active-phase {
     background-color: #fff;
     margin-top: 16px;
     padding: 32px;
@@ -78,11 +78,11 @@
       }
     }
   }
-  .bottom {
+  .price {
     background-color: #fff;
     margin-top: 16px;
-    margin-bottom: 16px;
     padding: 32px;
+    position: relative;
     .title {
       font-size: 28px;
       color: #000000;
@@ -92,5 +92,51 @@
       color: #834b16;
       font-size: 80px;
     }
+    .share-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 32px;
+      color: #fff;
+      background-color: #18ad61;
+      border-radius: 48px;
+      width: 140px;
+      height: 80px;
+      line-height: 80px;
+    }
+  }
+  .attributes {
+    background-color: #fff;
+    margin-top: 16px;
+    .attribute {
+      position: relative;
+      display: flex;
+      height: 128px;
+      line-height: 128px;
+      padding: 0 32px;
+      color: #000000;
+      font-size: 32px;
+      &::after {
+        content: ' ';
+        position: absolute;
+        right: 0;
+        bottom: 0px;
+        left: 144px;
+        border-bottom: 2px solid rgba($color: #000000, $alpha: 0.05);
+      }
+      .title {
+        width: 112px;
+        display: flex;
+        align-items: center;
+        color: rgba($color: #000000, $alpha: 0.5);
+        font-size: 24px;
+      }
+      .text {
+        flex: 1;
+      }
+    }
+  }
+  ad {
+    margin-top: 16px;
   }
 }

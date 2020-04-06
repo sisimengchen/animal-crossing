@@ -19,13 +19,13 @@ class App extends Component {
     }
     if (Taro.createInterstitialAd) {
       interstitialAd = Taro.createInterstitialAd({
-        adUnitId: 'adunit-b35d91cb29a860c3'
+        adUnitId: 'adunit-6093d8dad98f06b2'
       });
       interstitialAd.onLoad(() => {});
-      interstitialAd.onError(err => {});
+      interstitialAd.onError((err) => {});
       interstitialAd.onClose(() => {});
       if (interstitialAd) {
-        interstitialAd.show().catch(err => {
+        interstitialAd.show().catch((err) => {
           console.error(err);
         });
       }
@@ -34,7 +34,6 @@ class App extends Component {
 
   config = {
     pages: [
-      // 'pages/detail/index',
       'pages/index/index',
       'pages/list/index',
       'pages/filter/index',

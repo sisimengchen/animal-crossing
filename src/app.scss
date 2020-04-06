@@ -88,6 +88,15 @@ $color-icon-base: #e5e5e5 !default;
       .price {
       }
     }
+    .group_bar {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background-color: #f3f3f3;
+      color: rgba($color: #000000, $alpha: 0.5);
+      padding: 4px 32px;
+      font-size: 24px;
+    }
   }
 }
 

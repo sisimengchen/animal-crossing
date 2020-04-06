@@ -24,7 +24,7 @@ export default class Filterout extends Component {
     const { type } = this.state;
     const filterState = cacheDataGet('PAGES_FILTER_STATE');
     this.setState({
-      list: globalObject.filterList(type, filterState)
+      list: globalObject.filter(type, filterState)
     });
   }
 
@@ -38,7 +38,13 @@ export default class Filterout extends Component {
     const { type, list = [] } = this.state;
     return (
       <View className="page filterout-page">
-        <Ad unit-id="adunit-6ef6284998be6d4f"></Ad>
+        <Ad
+          unit-id="adunit-20eec8de555f176b"
+          ad-type="grid"
+          grid-opacity="0.8"
+          grid-count="5"
+          ad-theme="white"
+        ></Ad>
         <View className="animal-list">
           {list.map((item, index) => {
             const imageSrc = `/images/animals/${type}/${type}${(

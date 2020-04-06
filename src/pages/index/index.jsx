@@ -9,6 +9,11 @@ export default class Index extends Component {
     this.state = {
       list: [
         {
+          icon: '/images/animals/insect/insect001.png',
+          text: '村民图鉴',
+          url: '/pages/list/index?type=villager'
+        },
+        {
           icon: '/images/animals/fish/fish001.png',
           text: '鱼图鉴',
           url: '/pages/list/index?type=fish'

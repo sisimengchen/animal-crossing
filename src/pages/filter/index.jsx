@@ -61,7 +61,7 @@ export default class Filter extends Component {
         <View className="condition">
           <View className="title">
             活跃期
-            <View className="switch">
+            {/* <View className="switch">
               <View
                 className={`item left${monthKey == 'month_s' ? ' active' : ''}`}
                 onClick={() => {
@@ -80,7 +80,7 @@ export default class Filter extends Component {
               >
                 北半球
               </View>
-            </View>
+            </View> */}
           </View>
           <View className="months">
             {ALL_MONTH.map((item, index) => {
@@ -91,7 +91,7 @@ export default class Filter extends Component {
                   onClick={() => {
                     this.setState({
                       month: isActive
-                        ? month.filter(n => n != item)
+                        ? month.filter((n) => n != item)
                         : month.concat(item)
                     });
                   }}
