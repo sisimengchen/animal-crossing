@@ -23,8 +23,7 @@
     top: 50%;
     right: 0;
     z-index: 1;
-    font-size: 28px;
-    color: rgba($color: #000000, $alpha: 0.5);
+    font-size: 20px;
     background-color: transparent;
     transform: translateY(-50%);
     z-index: 10;
@@ -32,9 +31,17 @@
       flex: 1;
       text-align: center;
       font-weight: bold;
-      padding: 0 20px;
-      &.active {
+      color: rgba($color: #000000, $alpha: 0.5);
+      background-color: transparent;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      text-align: center;
+      margin-bottom: 2px;
+      &:active {
         color: #834b16;
+        // background-color: #834b16;
+        // border-radius: 50%;
       }
     }
   }

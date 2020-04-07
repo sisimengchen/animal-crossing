@@ -9,6 +9,22 @@ import { read } from '../utils/localStorage';
 
 export const ALL_MONTH = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
+export const ALL_SPECIES = Object.keys(villagermap.species).map((value) => {
+  return {
+    text: villagermap.species[value],
+    value
+  };
+});
+
+export const ALL_PERSONALITY = Object.keys(villagermap.personality).map(
+  (value) => {
+    return {
+      text: villagermap.personality[value],
+      value
+    };
+  }
+);
+
 const UNKOWN_TYPE_TEXT = '未知类型';
 const UNKOWN_PROPERTY_TEXT = '未知属性';
 const UNKOWN_DATA_TEXT = '未知';
@@ -52,6 +68,20 @@ const TYPE_MAPS = {
       }
       data.group_key = group_key;
       return group_key;
+    },
+    merge: (data = {}) => {
+      let extraData = {};
+      if (data.birth_month) {
+        extraData.is_birth_month =
+          new Date().getMonth() + 1 == data.birth_month;
+      }
+      if (data.birth_month && data.birth_day) {
+        extraData.birthStr = `${data.birth_month}月${data.birth_day}日`;
+      }
+      return {
+        ...extraData,
+        ...data
+      };
     }
   }
 };
@@ -140,9 +170,6 @@ export const globalObject = {
     if (data.personality) {
       data.personalityStr = this.getText(type, 'personality', data.personality);
     }
-    if (data.birth_month && data.birth_day) {
-      data.birthStr = `${data.birth_month}月${data.birth_day}日`;
-    }
     return data;
   },
   getText: function (type, key, value) {
@@ -168,13 +195,17 @@ export const globalObject = {
       monthKey = 'month_n',
       month = [],
       startTime = 0,
-      endTime = 24
+      endTime = 24,
+      species,
+      birth_month,
+      personality
     } = filter;
     const filterList = list.filter((item) => {
       // month空表示选中所有月份
       let isMonthOk = month.length == 0 ? true : false;
       // 24小时表示所有时间
       let isTimeOk = endTime - startTime == 24 ? true : false;
+
       if (!isMonthOk) {
         const itemMonth = item[monthKey];
         if (itemMonth.length == 0) {
@@ -203,7 +234,13 @@ export const globalObject = {
           isTimeOk = true;
         }
       }
-      return isMonthOk && isTimeOk;
+      return (
+        isMonthOk &&
+        isTimeOk &&
+        (species ? species == item.species : true) &&
+        (birth_month ? birth_month == item.birth_month : true) &&
+        (personality ? personality == item.personality : true)
+      );
     });
     return filterList;
   }

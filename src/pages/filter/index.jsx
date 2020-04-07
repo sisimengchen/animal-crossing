@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Button } from '@tarojs/components';
 import { AtRange } from 'taro-ui';
-import { ALL_MONTH } from '../../data';
+import { ALL_MONTH, ALL_SPECIES, ALL_PERSONALITY } from '../../data';
 import { cacheDataSet } from '../../utils/cache';
 import { read } from '../../utils/localStorage';
 import './index.scss';
@@ -15,7 +15,10 @@ export default class Filter extends Component {
       monthKey: read('GLOBAL_MONTH_KEY'),
       month: [],
       startTime: 0,
-      endTime: 24
+      endTime: 24,
+      species: undefined,
+      birth_month: undefined,
+      personality: undefined
     };
   }
 
@@ -42,8 +45,24 @@ export default class Filter extends Component {
   }
 
   check() {
-    const { month = [], startTime, endTime } = this.state;
-    if (month.length == 0 && startTime == 0 && endTime == 24) {
+    const {
+      type,
+      month = [],
+      startTime,
+      endTime,
+      species,
+      birth_month,
+      personality
+    } = this.state;
+    if (type == 'villager' && !species && !birth_month && !personality) {
+      Taro.showToast({
+        title: '请选择筛选条件',
+        icon: 'none',
+        duration: 2000
+      });
+      return false;
+    }
+    if (type != 'villager' && month.length == 0 && startTime == 0 && endTime == 24) {
       Taro.showToast({
         title: '请选择筛选条件',
         icon: 'none',
@@ -55,72 +74,130 @@ export default class Filter extends Component {
   }
 
   render() {
-    const { type, monthKey, month = [], startTime, endTime } = this.state;
+    const {
+      type,
+      monthKey,
+      month = [],
+      startTime,
+      endTime,
+      species,
+      birth_month,
+      personality
+    } = this.state;
     return (
       <View className="page filter-page">
-        <View className="condition">
-          <View className="title">
-            活跃期
-            {/* <View className="switch">
-              <View
-                className={`item left${monthKey == 'month_s' ? ' active' : ''}`}
-                onClick={() => {
-                  this.setState({ monthKey: 'month_s' });
-                }}
-              >
-                南半球
+        {type == 'villager' ? (
+          <View>
+            <View className="condition">
+              <View className="title">性格</View>
+              <View className="months">
+                {ALL_PERSONALITY.map((item, index) => {
+                  const isActive = item.value == personality;
+                  return (
+                    <View
+                      key={item.value}
+                      className={`month${isActive ? ' active' : ''}`}
+                      onClick={() => {
+                        this.setState({
+                          personality: isActive ? undefined : item.value
+                        });
+                      }}
+                    >
+                      <View>{item.text}</View>
+                    </View>
+                  );
+                })}
               </View>
-              <View
-                className={`item right${
-                  monthKey == 'month_n' ? ' active' : ''
-                }`}
-                onClick={() => {
-                  this.setState({ monthKey: 'month_n' });
-                }}
-              >
-                北半球
+            </View>
+            <View className="condition">
+              <View className="title">生日</View>
+              <View className="months">
+                {ALL_MONTH.map((item, index) => {
+                  const isActive = item == birth_month;
+                  return (
+                    <View
+                      key={item}
+                      className={`month${isActive ? ' active' : ''}`}
+                      onClick={() => {
+                        this.setState({
+                          birth_month: isActive ? undefined : item
+                        });
+                      }}
+                    >
+                      <View>{item}月</View>
+                    </View>
+                  );
+                })}
               </View>
-            </View> */}
+            </View>
+            <View className="condition">
+              <View className="title">种族</View>
+              <View className="months">
+                {ALL_SPECIES.map((item, index) => {
+                  const isActive = item.value == species;
+                  return (
+                    <View
+                      key={item.value}
+                      className={`month${isActive ? ' active' : ''}`}
+                      onClick={() => {
+                        this.setState({
+                          species: isActive ? undefined : item.value
+                        });
+                      }}
+                    >
+                      <View>{item.text}</View>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
           </View>
-          <View className="months">
-            {ALL_MONTH.map((item, index) => {
-              const isActive = month.includes(item);
-              return (
-                <View
-                  className={`month${isActive ? ' active' : ''}`}
-                  onClick={() => {
-                    this.setState({
-                      month: isActive
-                        ? month.filter((n) => n != item)
-                        : month.concat(item)
-                    });
-                  }}
-                >
-                  <View>{item}月</View>
-                </View>
-              );
-            })}
+        ) : (
+          <View>
+            <View className="condition">
+              <View className="title">活跃期</View>
+              <View className="months">
+                {ALL_MONTH.map((item, index) => {
+                  const isActive = month.includes(item);
+                  return (
+                    <View
+                      key={item}
+                      className={`month${isActive ? ' active' : ''}`}
+                      onClick={() => {
+                        this.setState({
+                          month: isActive
+                            ? month.filter((n) => n != item)
+                            : month.concat(item)
+                        });
+                      }}
+                    >
+                      <View>{item}月</View>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+            <View className="condition">
+              <View className="title">
+                时间
+                <Text className="time">
+                  {startTime}点~{endTime}点
+                </Text>
+              </View>
+              <View className="range">
+                <AtRange
+                  value={[startTime, endTime]}
+                  min={0}
+                  max={24}
+                  sliderStyle={{ border: '2rpx solid rgba(0,0,0,0.1)' }}
+                  trackStyle={{ height: '4PX' }}
+                  railStyle={{ height: '4PX' }}
+                  onChange={this.handleChange.bind(this)}
+                />
+              </View>
+            </View>
           </View>
-        </View>
-        <View className="condition">
-          <View className="title">
-            时间
-            <Text className="time">
-              {startTime}点~{endTime}点
-            </Text>
-          </View>
-          <View className="range">
-            <AtRange
-              value={[startTime, endTime]}
-              min={0}
-              max={24}
-              sliderStyle={{ border: '2rpx solid rgba(0,0,0,0.1)' }}
-              trackStyle={{ height: '4PX' }}
-              railStyle={{ height: '4PX' }}
-              onChange={this.handleChange.bind(this)}
-            />
-          </View>
-        </View>
+        )}
         <View className="fixed-btns-view">
           <Button
             onClick={() => {
@@ -140,7 +217,10 @@ export default class Filter extends Component {
                 monthKey,
                 month,
                 startTime,
-                endTime
+                endTime,
+                species,
+                birth_month,
+                personality
               });
               Taro.navigateTo({
                 url: `/pages/filterout/index?type=${type}`

@@ -155,7 +155,7 @@ export default class List extends Component {
         <View className="animal-list">
           {list.map((item, index) =>
             item.type == 'group_key' ? (
-              <View key={item.id} className="group_bar">
+              <View key={item.id} className="group_bar" id={item.id}>
                 {item.name}
               </View>
             ) : (
@@ -184,9 +184,15 @@ export default class List extends Component {
                         : item.expireDays + '天后到期'}
                     </Text>
                   ) : null}
+                  {item.is_birth_month ? (
+                    <Text className="expire-days">本月生日</Text>
+                  ) : null}
                 </View>
                 {item.price ? (
                   <View className="price">{item.price}</View>
+                ) : null}
+                {item.birthStr ? (
+                  <View className="price">{item.birthStr}</View>
                 ) : null}
               </View>
             )

@@ -63,7 +63,19 @@ export default class Detail extends Component {
           <View className="icon">
             <Image src={this.imageSrc} />
           </View>
-          <View className="name">{data.name}</View>
+          <View className="name">
+            {data.name}
+            {data.gender ? (
+              <Image
+                className="gender"
+                src={
+                  data.gender == 1
+                    ? '/images/icon_male.png'
+                    : '/images/icon_female.png'
+                }
+              />
+            ) : null}
+          </View>
           <View className="infos">
             {data.timeStr ? (
               <View className="info">

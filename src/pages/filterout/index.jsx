@@ -23,6 +23,7 @@ export default class Filterout extends Component {
   componentDidMount() {
     const { type } = this.state;
     const filterState = cacheDataGet('PAGES_FILTER_STATE');
+    console.log(filterState)
     this.setState({
       list: globalObject.filter(type, filterState)
     });
@@ -72,8 +73,16 @@ export default class Filterout extends Component {
                         : item.expireDays + '天后到期'}
                     </Text>
                   ) : null}
+                  {item.is_birth_month ? (
+                    <Text className="expire-days">本月生日</Text>
+                  ) : null}
                 </View>
-                <View className="price">{item.price}</View>
+                {item.price ? (
+                  <View className="price">{item.price}</View>
+                ) : null}
+                {item.birthStr ? (
+                  <View className="price">{item.birthStr}</View>
+                ) : null}
               </View>
             );
           })}
